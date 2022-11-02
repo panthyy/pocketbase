@@ -7,8 +7,11 @@ ARG VERSION
 
 ENV BUILDX_ARCH="${TARGETOS:-linux}_${TARGETARCH:-amd64}${TARGETVARIANT}"
 
-RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/pocketbase_${VERSION}_${BUILDX_ARCH}.zip \
-    && unzip pocketbase_${VERSION}_${BUILDX_ARCH}.zip \
+## copy pocket pocketbase_0.7.9_linux_arm64.zip from ./ to .
+COPY pocketbase_0.7.9_linux_arm64.zip . 
+
+RUN unzip pocketbase_0.7.9_linux_arm64.zip \
+    && rm pocketbase_0.7.9_linux_arm64.zip \
     && chmod +x /pocketbase
 
 FROM alpine:3
